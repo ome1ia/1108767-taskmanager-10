@@ -401,7 +401,7 @@ render(siteMainElement, createFiltersTemplate());
 render(siteMainElement, createTasksListTemplate());
 
 const tasksList = siteMainElement.querySelector(`.board__tasks`);
-let taskCount = 3;
+const taskCount = 3;
 
 render(tasksList, createTaskItemEditTemplate());
 
