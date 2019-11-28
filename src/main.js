@@ -1,5 +1,3 @@
-'use strict';
-
 const createMenuTemplate = () => {
   return (`<section class="control__btn-wrap">
           <input
