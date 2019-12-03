@@ -18,11 +18,11 @@ render(siteMainElement, createFiltersTemplate());
 render(siteMainElement, createTasksListTemplate());
 
 const tasksList = siteMainElement.querySelector(`.board__tasks`);
-const taskCount = 3;
+const TASK_COUNT = 3;
 
 render(tasksList, createTaskItemEditTemplate());
 
-for (let i = 0; i < taskCount; i++) {
+for (let i = 0; i < TASK_COUNT; i++) {
   render(tasksList, createTaskItemTemplate());
 }
 
