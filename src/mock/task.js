@@ -87,11 +87,9 @@ const getTask = () => {
   };
 };
 
-const TASK_COUNT = 3;
-
-const getTasks = () => {
+const getTasks = (count) => {
   let tasks = [];
-  for (let i = 0; i < TASK_COUNT; i++) {
+  for (let i = 0; i < count; i++) {
     tasks.push(getTask());
   }
   return tasks;
