@@ -5,6 +5,9 @@ import {createTaskItemTemplate} from './components/task.js'
 import {createTaskItemEditTemplate} from './components/task-edit.js'
 import {createButtonLoadTemplate} from './components/button-load.js'
 
+//import mocks for data
+import {getFilters} from './mock/filter.js'
+import {getTask} from './mock/task.js'
 
 const render = (container, template, place = `beforeEnd`) => {
   container.insertAdjacentHTML(place, template);
@@ -14,16 +17,20 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 render(siteHeaderElement, createMenuTemplate());
-render(siteMainElement, createFiltersTemplate());
+
+let filters = getFilters();
+render(siteMainElement, createFiltersTemplate(filters));
+
 render(siteMainElement, createTasksListTemplate());
 
 const tasksList = siteMainElement.querySelector(`.board__tasks`);
-const TASK_COUNT = 3;
-
 render(tasksList, createTaskItemEditTemplate());
 
+const TASK_COUNT = 8;
+
 for (let i = 0; i < TASK_COUNT; i++) {
-  render(tasksList, createTaskItemTemplate());
+  let task = getTask();
+  render(tasksList, createTaskItemTemplate(task));
 }
 
 render(tasksList, createButtonLoadTemplate());
