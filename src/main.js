@@ -1,6 +1,6 @@
 import Menu from './components/menu.js'
 import Filters from './components/filter.js'
-import {createTasksListTemplate} from './components/tasks.js'
+import TasksList from './components/tasks.js'
 import TaskItem from './components/task.js'
 import TaskItemEdit from './components/task-edit.js'
 import ButtonLoad from './components/button-load.js'
@@ -28,19 +28,22 @@ const filters = new Filters(filtersData);
 const filtersElement = filters.getElement();
 siteMainElement.append(filtersElement);
 
-render(siteMainElement, createTasksListTemplate());
-const tasksList = siteMainElement.querySelector(`.board__tasks`);
+const tasksList = new TasksList();
+const tasksListElement = tasksList.getElement();
+siteMainElement.append(tasksListElement);
+
+const tasksContainer = siteMainElement.querySelector(`.board__tasks`);
 
 const buttonLoad = new ButtonLoad();
 const buttonLoadElement = buttonLoad.getElement();
-tasksList.append(buttonLoadElement);
+tasksContainer.after(buttonLoadElement);
 
 const taskEdit = new TaskItemEdit();
 const taskEditElement = taskEdit.getElement();
-buttonLoadElement.before(taskEditElement);
+tasksContainer.append(taskEditElement);
 
 const loadTasks = (count) => {
-  const loadedTasksLength = tasksList.querySelectorAll(`.card`).length - 1; //так как всегда загружена 1 задача для редактирования
+  const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length - 1; //так как всегда загружена 1 задача для редактирования
 
   for (let i = 0; i < count; i++) {
   	let taskIndex = loadedTasksLength + i;
@@ -49,7 +52,7 @@ const loadTasks = (count) => {
   	  let taskData = tasks[taskIndex];
       const task = new TaskItem(taskData);
       const taskElement = task.getElement();
-      buttonLoadElement.before(taskElement);
+      tasksContainer.append(taskElement);
   	} else {
   	  buttonLoad.removeElement();
   	  break;
