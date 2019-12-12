@@ -1,7 +1,7 @@
 import {createElement} from '../utils/create-element.js';
 
 const setDay = (date) => {
-  const months = [
+  const Months = [
     `January`,
     `February`,
     `March`,
@@ -15,8 +15,8 @@ const setDay = (date) => {
     `November`,
     `December`];
 
-  let day = date.getDate();
-  let month = months[date.getMonth()];
+  const day = date.getDate();
+  const month = Months[date.getMonth()];
 
   return `${day} ${month}`;
 };
@@ -58,7 +58,7 @@ const checkRepeating = (days) => {
 };
 
 const checkDeadline = (date, repeatingDays) => {
-  let nowDate = new Date();
+  const nowDate = new Date();
   return (nowDate > date) && !checkRepeating(repeatingDays);
 };
 
@@ -98,11 +98,15 @@ export default class TaskItem {
   }
 
   get _isDeadlineClass() {
-    return this._isDeadline ? `card--deadline` : ``;
+    return this._isDeadline ? ` card--deadline` : ``;
+  }
+
+  get _repeatClass() {
+    return checkRepeating(this._repeatingDays) ? ` card--repeat` : ``;
   }
 
   getTemplate() {
-    return `<article class="card card--${this._color} ${this._isDeadlineClass}">
+    return `<article class="card card--${this._color}${this._repeatClass}${this._isDeadlineClass}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">

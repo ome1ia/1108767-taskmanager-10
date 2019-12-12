@@ -36,9 +36,9 @@ const getDay = () => {
     'su': false
   };
 
-  const daysList = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
+  const DaysList = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
   const repeatingDayIndex = getRandom(8);
-  const repeatingDay = daysList[repeatingDayIndex];
+  const repeatingDay = DaysList[repeatingDayIndex];
 
   if (repeatingDay) {
     days[repeatingDay] = true;
@@ -48,21 +48,21 @@ const getDay = () => {
 };
 
 const getTags = () => {
-  const tagsList = [`homework`, `theory`, `practice`, `intensive`, `keks`];
+  const TagsList = [`homework`, `theory`, `practice`, `intensive`, `keks`];
   const tagsSize = getRandom(3);
   const tags = new Set();
 
   for (let i = 0; i <= tagsSize; i++) {
     const tagId = getRandom(tagsSize - 1);
-    tags.add(tagsList[tagId]);
+    tags.add(TagsList[tagId]);
   }
 
   return tags;
 };
 
 const getColor = () => {
-  const colors = [`black`, `yellow`, `blue`, `green`, `pink`];
-  return colors[getRandom(4)];
+  const Colors = [`black`, `yellow`, `blue`, `green`, `pink`];
+  return Colors[getRandom(4)];
 };
 
 const getIsFavorite = () => {
