@@ -36,20 +36,31 @@ const buttonLoad = new ButtonLoad();
 const buttonLoadElement = buttonLoad.getElement();
 render(tasksContainer, buttonLoadElement, `after`);
 
-const taskEdit = new TaskItemEdit();
-const taskEditElement = taskEdit.getElement();
-render(tasksContainer, taskEditElement);
-
 const loadTasks = (count) => {
-  const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length - 1; //так как всегда загружена 1 задача для редактирования
+  const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length;
 
   for (let i = 0; i < count; i++) {
   	let taskIndex = loadedTasksLength + i;
 
   	if (taskIndex < TASK_COUNT) {
   	  let taskData = tasks[taskIndex];
+
       const task = new TaskItem(taskData);
       const taskElement = task.getElement();
+
+      const taskEdit = new TaskItemEdit();
+      const taskEditElement = taskEdit.getElement();
+
+      const taskStartEdit = taskElement.querySelector(`.card__btn--edit`);
+      taskStartEdit .addEventListener(`click`, () => {
+        render(taskElement, taskEditElement, `replace`);
+      });
+
+      const taskEndEdit = taskEditElement.querySelector(`.card__form`);
+      taskEndEdit.addEventListener(`submit`, () => {
+        render(taskEditElement, taskElement, `replace`);
+      });
+
       render(tasksContainer, taskElement);
   	} else {
   	  buttonLoad.removeElement();
@@ -60,4 +71,4 @@ const loadTasks = (count) => {
 
 buttonLoadElement.addEventListener(`click`, () => { loadTasks(8) });
 
-loadTasks(7);
+loadTasks(8);
