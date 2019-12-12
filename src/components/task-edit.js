@@ -228,4 +228,4 @@ export default class TaskItemEdit {
     this._element.remove();
     this._element = null;
   }
-};
+}
