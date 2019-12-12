@@ -5,6 +5,8 @@ import TaskItem from './components/task.js'
 import TaskItemEdit from './components/task-edit.js'
 import ButtonLoad from './components/button-load.js'
 
+import {render} from './utils/render.js'
+
 //import mocks
 import {getFilters} from './mock/filter.js'
 import {getTasks} from './mock/task.js'
@@ -12,35 +14,31 @@ import {getTasks} from './mock/task.js'
 const TASK_COUNT = 22;
 const tasks = getTasks(TASK_COUNT);
 
-const render = (container, template, place = `beforeEnd`) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const menu = new Menu();
 const menuElement = menu.getElement();
-siteHeaderElement.append(menuElement);
+render(siteHeaderElement, menuElement);
 
 const filtersData = getFilters();
 const filters = new Filters(filtersData);
 const filtersElement = filters.getElement();
-siteMainElement.append(filtersElement);
+render(siteMainElement, filtersElement);
 
 const tasksList = new TasksList();
 const tasksListElement = tasksList.getElement();
-siteMainElement.append(tasksListElement);
+render(siteMainElement, tasksListElement);
 
 const tasksContainer = siteMainElement.querySelector(`.board__tasks`);
 
 const buttonLoad = new ButtonLoad();
 const buttonLoadElement = buttonLoad.getElement();
-tasksContainer.after(buttonLoadElement);
+render(tasksContainer, buttonLoadElement, `after`);
 
 const taskEdit = new TaskItemEdit();
 const taskEditElement = taskEdit.getElement();
-tasksContainer.append(taskEditElement);
+render(tasksContainer, taskEditElement);
 
 const loadTasks = (count) => {
   const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length - 1; //так как всегда загружена 1 задача для редактирования
@@ -52,7 +50,7 @@ const loadTasks = (count) => {
   	  let taskData = tasks[taskIndex];
       const task = new TaskItem(taskData);
       const taskElement = task.getElement();
-      tasksContainer.append(taskElement);
+      render(tasksContainer, taskElement);
   	} else {
   	  buttonLoad.removeElement();
   	  break;
