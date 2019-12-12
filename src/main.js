@@ -48,7 +48,7 @@ const loadTasks = (count) => {
       const task = new TaskItem(taskData);
       const taskElement = task.getElement();
 
-      const taskEdit = new TaskItemEdit();
+      const taskEdit = new TaskItemEdit(taskData);
       const taskEditElement = taskEdit.getElement();
 
       const taskStartEdit = taskElement.querySelector(`.card__btn--edit`);
