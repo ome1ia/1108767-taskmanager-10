@@ -1,7 +1,7 @@
 import Menu from './components/menu.js'
 import Filters from './components/filter.js'
 import {createTasksListTemplate} from './components/tasks.js'
-import {createTaskItemTemplate} from './components/task.js'
+import TaskItem from './components/task.js'
 import TaskItemEdit from './components/task-edit.js'
 import ButtonLoad from './components/button-load.js'
 
@@ -47,7 +47,9 @@ const loadTasks = (count) => {
 
   	if (taskIndex < TASK_COUNT) {
   	  let taskData = tasks[taskIndex];
-  	  render(buttonLoadElement, createTaskItemTemplate(taskData), `beforeBegin`);
+      const task = new TaskItem(taskData);
+      const taskElement = task.getElement();
+      buttonLoadElement.before(taskElement);
   	} else {
   	  buttonLoad.removeElement();
   	  break;

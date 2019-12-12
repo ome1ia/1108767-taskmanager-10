@@ -62,9 +62,8 @@ const checkDeadline = (date, repeatingDays) => {
   return (nowDate > date) && !checkRepeating(repeatingDays);
 };
 
-
-
-export default TaskItem {
+// class TaskItem
+export default class TaskItem {
   constructor({description, dueDate, repeatingDays, tags, color}) {
     this._element = null;
     this._description = description;
@@ -85,14 +84,22 @@ export default TaskItem {
 
     return taskDate;
   }
-  
+
   get _taskTime() {
     return (checkRepeating(this._repeatingDays) || !this._dueDate) ? `` : setTime(this._dueDate);
   }
 
-  get _taskTags = setTags(this._tags);
-  get _isDeadline = checkDeadline(this._dueDate, this._repeatingDays);
-  get _isDeadlineClass = this._isDeadline ? `card--deadline` : ``;
+  get _taskTags() {
+    return setTags(this._tags);
+  }
+
+  get _isDeadline() {
+    return checkDeadline(this._dueDate, this._repeatingDays);
+  }
+
+  get _isDeadlineClass() {
+    return this._isDeadline ? `card--deadline` : ``;
+  }
 
   getTemplate() {
     return `<article class="card card--${this._color} ${this._isDeadlineClass}">
@@ -157,4 +164,4 @@ export default TaskItem {
     this._element.remove();
     this._element = null;
   }
-};
+}
