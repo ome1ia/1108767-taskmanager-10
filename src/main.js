@@ -3,7 +3,7 @@ import {createFiltersTemplate} from './components/filter.js'
 import {createTasksListTemplate} from './components/tasks.js'
 import {createTaskItemTemplate} from './components/task.js'
 import {createTaskItemEditTemplate} from './components/task-edit.js'
-import {createButtonLoadTemplate} from './components/button-load.js'
+import ButtonLoad from './components/button-load.js'
 
 //import mocks
 import {getFilters} from './mock/filter.js'
@@ -27,10 +27,11 @@ render(siteMainElement, createFiltersTemplate(filters));
 render(siteMainElement, createTasksListTemplate());
 const tasksList = siteMainElement.querySelector(`.board__tasks`);
 
-render(tasksList, createButtonLoadTemplate());
-const buttonLoad = tasksList.querySelector(`.load-more`);
+let buttonLoad = new ButtonLoad();
+let buttonLoadElement = buttonLoad.getElement();
+tasksList.append(buttonLoadElement);
 
-render(buttonLoad, createTaskItemEditTemplate(), `beforeBegin`);
+render(buttonLoadElement, createTaskItemEditTemplate(), `beforeBegin`);
 
 const loadTasks = (count) => {
   const loadedTasksLength = tasksList.querySelectorAll(`.card`).length - 1; //так как всегда загружена 1 задача для редактирования
@@ -40,14 +41,14 @@ const loadTasks = (count) => {
 
   	if (taskIndex < TASK_COUNT) {
   	  let taskData = tasks[taskIndex];
-  	  render(buttonLoad, createTaskItemTemplate(taskData), `beforeBegin`);
+  	  render(buttonLoadElement, createTaskItemTemplate(taskData), `beforeBegin`);
   	} else {
-  	  buttonLoad.remove();
+  	  buttonLoad.removeElement();
   	  break;
   	}
   }
 }
 
-buttonLoad.addEventListener(`click`, () => { loadTasks(8) });
+buttonLoadElement.addEventListener(`click`, () => { loadTasks(8) });
 
 loadTasks(7);
