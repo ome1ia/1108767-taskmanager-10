@@ -1,5 +1,5 @@
 import {createMenuTemplate} from './components/menu.js'
-import {createFiltersTemplate} from './components/filter.js'
+import Filters from './components/filter.js'
 import {createTasksListTemplate} from './components/tasks.js'
 import {createTaskItemTemplate} from './components/task.js'
 import {createTaskItemEditTemplate} from './components/task-edit.js'
@@ -10,7 +10,7 @@ import {getFilters} from './mock/filter.js'
 import {getTasks} from './mock/task.js'
 
 const TASK_COUNT = 22;
-let tasks = getTasks(TASK_COUNT);
+const tasks = getTasks(TASK_COUNT);
 
 const render = (container, template, place = `beforeEnd`) => {
   container.insertAdjacentHTML(place, template);
@@ -21,14 +21,16 @@ const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 render(siteHeaderElement, createMenuTemplate());
 
-let filters = getFilters();
-render(siteMainElement, createFiltersTemplate(filters));
+const filtersData = getFilters();
+const filters = new Filters(filtersData);
+const filtersElement = filters.getElement();
+siteMainElement.append(filtersElement);
 
 render(siteMainElement, createTasksListTemplate());
 const tasksList = siteMainElement.querySelector(`.board__tasks`);
 
-let buttonLoad = new ButtonLoad();
-let buttonLoadElement = buttonLoad.getElement();
+const buttonLoad = new ButtonLoad();
+const buttonLoadElement = buttonLoad.getElement();
 tasksList.append(buttonLoadElement);
 
 render(buttonLoadElement, createTaskItemEditTemplate(), `beforeBegin`);
