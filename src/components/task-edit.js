@@ -1,5 +1,12 @@
-export const createTaskItemEditTemplate = () => {
-  return `<article class="card card--edit card--black">
+import {createElement} from '../utils/create-element.js';
+
+export default class TaskItemEdit {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<article class="card card--edit card--black">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__color-bar">
@@ -208,4 +215,17 @@ export const createTaskItemEditTemplate = () => {
               </div>
             </form>
           </article>`;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element.remove();
+    this._element = null;
+  }
 };
