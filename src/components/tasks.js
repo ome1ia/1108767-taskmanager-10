@@ -1,5 +1,12 @@
-export const createTasksListTemplate = () => {
-  return `<section class="board container">
+import {createElement} from '../utils/create-element.js';
+
+export default class TasksList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<section class="board container">
         <div class="board__filter-list">
           <a href="#" class="board__filter">SORT BY DEFAULT</a>
           <a href="#" class="board__filter">SORT BY DATE up</a>
@@ -8,4 +15,17 @@ export const createTasksListTemplate = () => {
         <div class="board__tasks">
         </div>
       </section>`;
-};
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element.remove();
+    this._element = null;
+  }
+}

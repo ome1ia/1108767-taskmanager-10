@@ -36,35 +36,33 @@ const getDay = () => {
     'su': false
   };
 
-  const daysList = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
-  let repeatingDayIndex = getRandom(8);
-  let repeatingDay = daysList[repeatingDayIndex];
+  const DaysList = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
+  const repeatingDayIndex = getRandom(8);
+  const repeatingDay = DaysList[repeatingDayIndex];
 
   if (repeatingDay) {
     days[repeatingDay] = true;
   }
 
-  // в задании написано объект, но я бы возвращала строку (пустую или с названием дня)
-
   return days;
 };
 
 const getTags = () => {
-  const tagsList = [`homework`, `theory`, `practice`, `intensive`, `keks`];
-  let tagsSize = getRandom(3);
-  let tags = new Set();
+  const TagsList = [`homework`, `theory`, `practice`, `intensive`, `keks`];
+  const tagsSize = getRandom(3);
+  const tags = new Set();
 
   for (let i = 0; i <= tagsSize; i++) {
-    let tagId = getRandom(tagsSize - 1);
-    tags.add(tagsList[tagId]);
+    const tagId = getRandom(tagsSize - 1);
+    tags.add(TagsList[tagId]);
   }
 
   return tags;
 };
 
 const getColor = () => {
-  const colors = [`black`, `yellow`, `blue`, `green`, `pink`];
-  return colors[getRandom(4)];
+  const Colors = [`black`, `yellow`, `blue`, `green`, `pink`];
+  return Colors[getRandom(4)];
 };
 
 const getIsFavorite = () => {
@@ -88,7 +86,7 @@ const getTask = () => {
 };
 
 const getTasks = (count) => {
-  let tasks = [];
+  const tasks = [];
   for (let i = 0; i < count; i++) {
     tasks.push(getTask());
   }
