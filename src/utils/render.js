@@ -1,27 +1,40 @@
-export const render = (container, template, place = `append`) => {
+const render = (container, element, place = `append`) => {
+  const domElement = element.getElement();
+
   switch (place) {
     case `after`:
-      container.after(template);
+      container.after(domElement);
       break;
 
     case `prepend`:
-      container.prepend(template);
+      container.prepend(domElement);
       break;
 
     case `before`:
-      container.before(template);
+      container.before(domElement);
       break;
 
     case `replace`:
-      container.replaceWith(template);
+      container.replaceWith(domElement);
       break;
 
     case `append`:
-      container.append(template);
+      container.append(domElement);
       break;
 
     default:
-      container.append(template);
+      container.append(domElement);
       break;
   }
 };
+
+const replace = (oldElement, newElement) => {
+  oldElement.getElement().replaceWith(newElement.getElement());
+};
+
+const remove = (element) => {
+  element.getElement().remove();
+  element.removeElement();
+};
+
+export {render, replace, remove};

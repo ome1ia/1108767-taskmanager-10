@@ -5,7 +5,7 @@ import TaskItem from './components/task.js'
 import TaskItemEdit from './components/task-edit.js'
 import ButtonLoad from './components/button-load.js'
 
-import {render} from './utils/render.js'
+import {render, replace, remove} from './utils/render.js'
 
 //import mocks
 import {getFilters} from './mock/filter.js'
@@ -18,23 +18,19 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const menu = new Menu();
-const menuElement = menu.getElement();
-render(siteHeaderElement, menuElement);
+render(siteHeaderElement, menu);
 
 const filtersData = getFilters();
 const filters = new Filters(filtersData);
-const filtersElement = filters.getElement();
-render(siteMainElement, filtersElement);
+render(siteMainElement, filters);
 
 const tasksList = new TasksList();
-const tasksListElement = tasksList.getElement();
-render(siteMainElement, tasksListElement);
+render(siteMainElement, tasksList);
 
 const tasksContainer = siteMainElement.querySelector(`.board__tasks`);
 
 const buttonLoad = new ButtonLoad();
-const buttonLoadElement = buttonLoad.getElement();
-render(tasksContainer, buttonLoadElement, `after`);
+render(tasksContainer, buttonLoad, `after`);
 
 const loadTasks = (count) => {
   const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length;
@@ -52,23 +48,23 @@ const loadTasks = (count) => {
       const taskEditElement = taskEdit.getElement();
 
       const taskStartEdit = taskElement.querySelector(`.card__btn--edit`);
-      taskStartEdit .addEventListener(`click`, () => {
-        render(taskElement, taskEditElement, `replace`);
+      taskStartEdit.addEventListener(`click`, () => {
+        replace(task, taskEdit);
       });
 
       const taskEndEdit = taskEditElement.querySelector(`.card__form`);
       taskEndEdit.addEventListener(`submit`, () => {
-        render(taskEditElement, taskElement, `replace`);
+        replace(taskEdit, task);
       });
 
-      render(tasksContainer, taskElement);
+      render(tasksContainer, task);
   	} else {
-  	  buttonLoad.removeElement();
+  	  buttonLoad.remove();
   	  break;
   	}
   }
 }
 
-buttonLoadElement.addEventListener(`click`, () => { loadTasks(8) });
+buttonLoad.getElement().addEventListener(`click`, () => { loadTasks(8) });
 
 loadTasks(8);
