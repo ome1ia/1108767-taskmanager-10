@@ -1,4 +1,4 @@
-import {createElement} from '../utils/create-element.js';
+import AbstractComponent from './abstract-component.js';
 
 const addFilter = (list, currentFilter) => {
   let filterName = currentFilter.name;
@@ -15,28 +15,17 @@ const addFilter = (list, currentFilter) => {
         ${filterTitle} <span class="filter__all-count">${filterCount}</span></label>`;
 };
 
-export default class Filters {
+export default class Filters extends AbstractComponent {
   constructor(filters) {
-    this._element = null;
+    super();
     this._filters = filters;
   }
 
+  get _filtersText() {
+    return this._filters.reduce(addFilter, ``);
+  }
 
   getTemplate() {
-    const filtersText = this._filters.reduce(addFilter, ``);
-
-    return `<section class="main__filter filter container">${filtersText}</section>`;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element.remove();
-    this._element = null;
+    return `<section class="main__filter filter container">${this._filtersText}</section>`;
   }
 }

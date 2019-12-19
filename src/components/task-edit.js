@@ -1,4 +1,4 @@
-import {createElement} from '../utils/create-element.js';
+import AbstractComponent from './abstract-component.js';
 
 const castTimeFormat = (value) => {
   return value < 10 ? `0${value}` : String(value);
@@ -110,9 +110,9 @@ const setColors = (color) => {
 };
 
 // class TaskItemEdit
-export default class TaskItemEdit {
+export default class TaskItemEdit extends AbstractComponent {
   constructor({description, dueDate, repeatingDays, tags, color}) {
-    this._element = null;
+    super();
     this._description = description;
     this._dueDate = dueDate;
     this._repeatingDays = repeatingDays;
@@ -229,17 +229,5 @@ export default class TaskItemEdit {
               </div>
             </form>
           </article>`;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element.remove();
-    this._element = null;
   }
 }

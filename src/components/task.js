@@ -1,4 +1,4 @@
-import {createElement} from '../utils/create-element.js';
+import AbstractComponent from './abstract-component.js';
 
 const setDay = (date) => {
   const Months = [
@@ -63,9 +63,9 @@ const checkDeadline = (date, repeatingDays) => {
 };
 
 // class TaskItem
-export default class TaskItem {
+export default class TaskItem extends AbstractComponent {
   constructor({description, dueDate, repeatingDays, tags, color}) {
-    this._element = null;
+    super();
     this._description = description;
     this._dueDate = dueDate;
     this._repeatingDays = repeatingDays;
@@ -155,17 +155,5 @@ export default class TaskItem {
               </div>
             </div>
           </article>`;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element.remove();
-    this._element = null;
   }
 }
