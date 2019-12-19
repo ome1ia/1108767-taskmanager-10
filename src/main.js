@@ -1,18 +1,12 @@
 import Menu from './components/menu.js'
 import Filters from './components/filter.js'
-import TasksList from './components/tasks.js'
-import TaskItem from './components/task.js'
-import TaskItemEdit from './components/task-edit.js'
-import ButtonLoad from './components/button-load.js'
+import BoardController from './components/board-controller.js'
 
 import {render, replace, remove} from './utils/render.js'
 
 //import mocks
 import {getFilters} from './mock/filter.js'
 import {getTasks} from './mock/task.js'
-
-const TASK_COUNT = 22;
-const tasks = getTasks(TASK_COUNT);
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
@@ -24,37 +18,8 @@ const filtersData = getFilters();
 const filters = new Filters(filtersData);
 render(siteMainElement, filters);
 
-const tasksList = new TasksList();
-render(siteMainElement, tasksList);
 
-const tasksContainer = siteMainElement.querySelector(`.board__tasks`);
-
-const buttonLoad = new ButtonLoad();
-render(tasksContainer, buttonLoad, `after`);
-
-const loadTasks = (count) => {
-  const loadedTasksLength = tasksContainer.querySelectorAll(`.card`).length;
-
-  for (let i = 0; i < count; i++) {
-  	let taskIndex = loadedTasksLength + i;
-
-  	if (taskIndex < TASK_COUNT) {
-  	  let taskData = tasks[taskIndex];
-
-      const task = new TaskItem(taskData);
-      task.setStartEditHandler(() => {replace(task, taskEdit);});
-
-      const taskEdit = new TaskItemEdit(taskData);
-      taskEdit.setSubmitHandler(() => {replace(taskEdit, task);})
-
-      render(tasksContainer, task);
-  	} else {
-  	  buttonLoad.remove();
-  	  break;
-  	}
-  }
-}
-
-buttonLoad.setClickHandler(() => { loadTasks(8) });
-
-loadTasks(8);
+const TASK_COUNT = 22;
+const tasks = getTasks(TASK_COUNT);
+const boardController = new BoardController(siteMainElement, tasks);
+boardController.render();
