@@ -230,4 +230,8 @@ export default class TaskItemEdit extends AbstractComponent {
             </form>
           </article>`;
   }
+
+  setSubmitHandler(handler) {
+    this.getElement().querySelector(`form`).addEventListener(`submit`, handler);
+  }
 }

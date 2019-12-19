@@ -42,20 +42,10 @@ const loadTasks = (count) => {
   	  let taskData = tasks[taskIndex];
 
       const task = new TaskItem(taskData);
-      const taskElement = task.getElement();
+      task.setStartEditHandler(() => {replace(task, taskEdit);});
 
       const taskEdit = new TaskItemEdit(taskData);
-      const taskEditElement = taskEdit.getElement();
-
-      const taskStartEdit = taskElement.querySelector(`.card__btn--edit`);
-      taskStartEdit.addEventListener(`click`, () => {
-        replace(task, taskEdit);
-      });
-
-      const taskEndEdit = taskEditElement.querySelector(`.card__form`);
-      taskEndEdit.addEventListener(`submit`, () => {
-        replace(taskEdit, task);
-      });
+      taskEdit.setSubmitHandler(() => {replace(taskEdit, task);})
 
       render(tasksContainer, task);
   	} else {
@@ -65,6 +55,6 @@ const loadTasks = (count) => {
   }
 }
 
-buttonLoad.getElement().addEventListener(`click`, () => { loadTasks(8) });
+buttonLoad.setClickHandler(() => { loadTasks(8) });
 
 loadTasks(8);

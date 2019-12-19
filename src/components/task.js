@@ -156,4 +156,8 @@ export default class TaskItem extends AbstractComponent {
             </div>
           </article>`;
   }
+
+  setStartEditHandler(handler) {
+    this.getElement().querySelector(`.card__btn--edit`).addEventListener(`click`, handler);
+  }
 }
